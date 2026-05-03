@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6-Wochen Trainingsplan</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;background:#f2f2f7;color:#1c1c1e;font-size:15px}
+  .header{background:#fff;padding:20px 16px 12px;border-bottom:0.5px solid #e0e0e5;position:sticky;top:0;z-index:10}
+  .header h1{font-size:20px;font-weight:600;margin-bottom:2px}
+  .header p{font-size:12px;color:#8e8e93}
+  .week-tabs{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;background:#f2f2f7;-webkit-overflow-scrolling:touch}
+  .week-tabs::-webkit-scrollbar{display:none}
+  .wtab{padding:7px 14px;border-radius:20px;font-size:13px;font-weight:500;border:none;cursor:pointer;white-space:nowrap;background:#e5e5ea;color:#3a3a3c;-webkit-tap-highlight-color:transparent}
+  .wtab.active{background:#1c1c1e;color:#fff}
+  .day-tabs{display:flex;gap:6px;padding:0 16px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .day-tabs::-webkit-scrollbar{display:none}
+  .dtab{padding:6px 12px;border-radius:16px;font-size:12px;border:none;cursor:pointer;white-space:nowrap;background:#e5e5ea;color:#3a3a3c;-webkit-tap-highlight-color:transparent}
+  .dtab.active{background:#007aff;color:#fff}
+  .content{padding:0 16px 32px}
+  .section-label{font-size:11px;font-weight:600;color:#8e8e93;text-transform:uppercase;letter-spacing:0.06em;margin:20px 0 8px;padding-left:4px}
+  .card{background:#fff;border-radius:12px;margin-bottom:10px;overflow:hidden}
+  .card-header{display:flex;align-items:center;gap:8px;padding:12px 14px 8px}
+  .time-badge{font-size:11px;font-weight:600;color:#8e8e93;background:#f2f2f7;padding:3px 8px;border-radius:8px;white-space:nowrap}
+  .card-title{font-size:14px;font-weight:600;color:#1c1c1e}
+  .tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px;margin-left:4px}
+  .tag-pull{background:#e1effe;color:#1a56db}
+  .tag-push{background:#def7ec;color:#057a55}
+  .tag-both{background:#ede9fe;color:#5521b5}
+  .ex-row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 14px;border-top:0.5px solid #f2f2f7}
+  .ex-name{font-size:14px;color:#1c1c1e}
+  .ex-note{font-size:12px;color:#8e8e93;margin-top:2px;line-height:1.4}
+  .ex-detail{font-size:13px;font-weight:600;color:#3a3a3c;text-align:right;flex-shrink:0;margin-left:12px;padding-top:1px}
+  .projection{background:#fff;border-radius:12px;overflow:hidden;margin-top:8px}
+  .proj-row{display:flex;align-items:center;padding:10px 14px;border-top:0.5px solid #f2f2f7}
+  .proj-week{font-size:13px;font-weight:600;color:#8e8e93;width:70px;flex-shrink:0}
+  .proj-bar-wrap{flex:1;display:flex;gap:8px}
+  .proj-bar{height:22px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;transition:width 0.3s ease;min-width:44px}
+  .proj-pull{background:#dbeafe;color:#1e40af}
+  .proj-push{background:#dcfce7;color:#166534}
+  .proj-header{display:flex;padding:10px 14px 8px;gap:8px}
+  .proj-header span{font-size:11px;font-weight:600;color:#8e8e93}
+  .rules{background:#fff;border-radius:12px;padding:14px}
+  .rule{display:flex;gap:10px;padding:8px 0;border-top:0.5px solid #f2f2f7}
+  .rule:first-child{border-top:none;padding-top:0}
+  .rule-num{font-size:14px;font-weight:700;color:#007aff;width:20px;flex-shrink:0}
+  .rule-text{font-size:14px;color:#1c1c1e;line-height:1.5}
+  @media(prefers-color-scheme:dark){
+    body{background:#000;color:#f2f2f7}
+    .header{background:#1c1c1e;border-color:#38383a}
+    .header h1{color:#f2f2f7}
+    .week-tabs,.day-tabs{background:#000}
+    .wtab{background:#2c2c2e;color:#ebebf5}
+    .wtab.active{background:#f2f2f7;color:#1c1c1e}
+    .dtab{background:#2c2c2e;color:#ebebf5}
+    .card{background:#1c1c1e}
+    .time-badge{background:#2c2c2e;color:#8e8e93}
+    .card-title{color:#f2f2f7}
+    .ex-row{border-color:#2c2c2e}
+    .ex-name{color:#f2f2f7}
+    .ex-detail{color:#ebebf5}
+    .tag-pull{background:#1e3a5f;color:#93c5fd}
+    .tag-push{background:#14532d;color:#86efac}
+    .tag-both{background:#2e1065;color:#c4b5fd}
+    .section-label{color:#8e8e93}
+    .projection,.rules{background:#1c1c1e}
+    .proj-row{border-color:#2c2c2e}
+    .proj-pull{background:#1e3a5f;color:#93c5fd}
+    .proj-push{background:#14532d;color:#86efac}
+    .proj-header{border-color:#2c2c2e}
+    .rule{border-color:#2c2c2e}
+    .rule-text{color:#f2f2f7}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>6-Wochen Trainingsplan</h1>
+  <p>Klimmzüge 2,5 → 10+ &nbsp;·&nbsp; Liegestütze 15 → 40+</p>
+</div>
+
+<div class="week-tabs" id="weekTabs"></div>
+<div class="day-tabs" id="dayTabs"></div>
+<div class="content" id="content"></div>
+
+<script>
+const weeks = [
+  {
+    label:"Woche 1–2",
+    pull_heavy:[
+      {name:"Negative Pull-ups",note:"Oben einsteigen mit Stuhl, langsam runter",detail:"6×3 (8 Sek.)"},
+      {name:"PAP-Set",note:"3 Min nach letzter Negative → sofort Max-Set",detail:"1×Max"},
+      {name:"Griffvariante",note:"Overhand (Pronation) — Lat & oberer Rücken",detail:"Overhand"}
+    ],
+    push_heavy:[
+      {name:"Weighted Push-ups",note:"Gewichtsweste oder Platte auf Rücken",detail:"5×6 @ 15kg"},
+      {name:"Dips",note:"Körpergewicht, explosiv nach oben",detail:"4×8 BW"},
+      {name:"PAP-Set Diamond",note:"3 Min nach Dips → Diamond Push-ups Max",detail:"1×Max"}
+    ],
+    gtg:{pull:"1–2 Wdh.",push:"6–8 Wdh."},
+    fighter_note:"Tagesmax testen → A/B/C starten",
+    rest_pause:"bis ~20 Wdh., 15 Sek. Pause, weiter",
+    bfr:true
+  },
+  {
+    label:"Woche 3–4",
+    pull_heavy:[
+      {name:"Negative Pull-ups",note:"Reduziert — Weighted übernimmt",detail:"4×3 (8 Sek.)"},
+      {name:"Weighted Pull-ups",note:"Gewichtsgürtel oder Weste",detail:"4×3 @ 10kg"},
+      {name:"PAP-Set",note:"3 Min nach Weighted → sofort Max-Set BW",detail:"1×Max"},
+      {name:"Griffvariante",note:"Neutral (Hammer) — Brachialis direkt",detail:"Neutral"}
+    ],
+    push_heavy:[
+      {name:"Weighted Push-ups",note:"Schwerer — Qualität vor Menge",detail:"5×5 @ 25kg"},
+      {name:"Dips weighted",note:"Gewichtsgürtel",detail:"4×6 @ +10kg"},
+      {name:"PAP-Set Diamond",note:"3 Min nach Dips → Max",detail:"1×Max"}
+    ],
+    gtg:{pull:"2–3 Wdh.",push:"9–12 Wdh."},
+    fighter_note:"Tagesmax steigt → Sets entsprechend anpassen",
+    rest_pause:"bis ~28 Wdh., 15 Sek. Pause, weiter",
+    bfr:true
+  },
+  {
+    label:"Woche 5–6",
+    pull_heavy:[
+      {name:"Negatives",note:"Nur noch als Aufwärmer",detail:"3×3 (8 Sek.)"},
+      {name:"Weighted Pull-ups",note:"Schwer — wenige, perfekte Wdh.",detail:"4×3 @ 15kg"},
+      {name:"AMRAP BW",note:"Abschluss-Set ohne Gewicht — alles raus",detail:"1×Max"},
+      {name:"Griffvariante",note:"Underhand (Supination) — Bizeps & unterer Lat",detail:"Underhand"}
+    ],
+    push_heavy:[
+      {name:"Weighted Push-ups",note:"Maximale Grundkraft",detail:"4×4 @ 35kg"},
+      {name:"Dips weighted",note:"Trizeps-Fokus",detail:"4×5 @ +15kg"},
+      {name:"PAP-Set Diamond",note:"3 Min nach Dips → Max",detail:"1×Max"}
+    ],
+    gtg:{pull:"3–5 Wdh.",push:"13–16 Wdh."},
+    fighter_note:"Tagesmax sollte jetzt bei 8–12 liegen",
+    rest_pause:"bis ~35 Wdh., 15 Sek. Pause, weiter",
+    bfr:true
+  }
+];
+
+const days = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+const heavyPullDays = [0,2,4];
+const heavyPushDays = [1,3,5];
+const bfrDays = [0,1,2,3,4];
+
+let selWeek = 0;
+let selDay = 0;
+
+function card(time, title, tag, rows){
+  let tagHtml = tag ? `<span class="tag tag-${tag}">${tag==='pull'?'Klimmzüge':tag==='push'?'Liegestütze':'täglich'}</span>` : '';
+  let rowHtml = rows.map(r=>`
+    <div class="ex-row">
+      <div>
+        <div class="ex-name">${r.name}</div>
+        ${r.note?`<div class="ex-note">${r.note}</div>`:''}
+      </div>
+      ${r.detail?`<div class="ex-detail">${r.detail}</div>`:''}
+    </div>`).join('');
+  return `<div class="card">
+    <div class="card-header"><span class="time-badge">${time}</span><span class="card-title">${title}${tagHtml}</span></div>
+    ${rowHtml}
+  </div>`;
+}
+
+function render(){
+  const w = weeks[selWeek];
+  const d = selDay;
+  const isPull = heavyPullDays.includes(d);
+  const isPush = heavyPushDays.includes(d);
+  const isBFR = bfrDays.includes(d);
+  const isSun = d === 6;
+  let html = '';
+
+  html += `<div class="section-label">Morgen — 06:00 bis 07:30</div>`;
+
+  html += card("06:00","Aktivierung",null,[
+    {name:"Wim-Hof-Breathing",note:"30 tiefe Atemzüge → ausatmen → sofort trainieren",detail:"2 Min"},
+    {name:"Sticking Point Isometrics",note:"Halt bei 90° (schwächste Position im Klimmzug)",detail:"5×10 Sek."},
+    {name:"Scapular Pulls",note:"Hängend, nur Schulterblätter zusammenziehen",detail:"3×10"}
+  ]);
+
+  if(isPull){
+    html += card("06:15","Heavy Pull","pull", w.pull_heavy);
+  }
+  if(isPush){
+    html += card("06:15","Heavy Push","push", w.push_heavy);
+  }
+  if(isSun){
+    html += card("06:15","Leichte Morgeneinheit",null,[
+      {name:"Dead Hang",note:"Griffkraft & Schultergesundheit",detail:"5×30 Sek."},
+      {name:"Band Pull-Aparts",note:"Schulterbalance",detail:"3×15"}
+    ]);
+  }
+
+  html += card("07:10","Abschluss Morgen",null,[
+    {name:"Dead Hang",note:"Täglich — Griffkraft & Schultergesundheit",detail:"3×30 Sek."},
+    {name:"Band Pull-Aparts",note:"Schulterbalance gegen Druckdominanz",detail:"2×15"},
+    {name:"Face Pulls",note:"Rotatorenmanschette & Schulterbalance",detail:"2×15"}
+  ]);
+
+  html += `<div class="section-label">Nachmittag / Abend — 14:00 bis 22:00</div>`;
+
+  html += card("14:00","Fighter Pull-up Program","both",[
+    {name:"Tagesmax testen",note:"1 frischer Max-Set. Basis für den Rest des Tages.",detail:"1×Max"},
+    {name:"Tag A",note:"Max / Max-1 / Max-2 / Max-3 / Max-4 (je 2 Min Pause)",detail:"5 Sets"},
+    {name:"Tag B",note:"(Max-2) × 5 Sets",detail:"5 Sets"},
+    {name:"Tag C",note:"(Max-3) × 3 Sets — bewusst leichter Tag",detail:"3 Sets"},
+    {name:"Rotation",note:"A → B → C → A → B → C → wiederholen. Kein Wochentag-Denken.",detail:""}
+  ]);
+
+  html += card("14:30–21:30","GTG — alle 60 Min (6 Runden)","both",[
+    {name:"Zeiten",note:"14:30 / 15:30 / 16:30 / 17:30 / 18:30 / 19:30",detail:""},
+    {name:"Klimmzüge",note:"Immer 40–50% Tagesmax. Nie ausgepumpt.",detail:w.gtg.pull},
+    {name:"Liegestütze",note:"Gleiche Regel — leicht, sauber, frisch",detail:w.gtg.push},
+    {name:"Goldene Regel",note:"Wenn du zweifelst ob es zu viel ist — es ist zu viel.",detail:""}
+  ]);
+
+  if(isBFR){
+    html += card("17:00","BFR Liegestütze","push",[
+      {name:"Setup",note:"Manschette eng um Oberarm — nicht am Handgelenk",detail:""},
+      {name:"Satz 1",note:"",detail:"1×30 Wdh."},
+      {name:"Sätze 2–4",note:"Je 30 Sek. Pause zwischen Sätzen",detail:"3×15 Wdh."}
+    ]);
+  }
+
+  html += card("21:00","Abschluss Abend",null,[
+    {name:"Visualisierung",note:"30 Sek. Augen zu — jeden Klimmzug bis 10 durchgehen",detail:"30 Sek."},
+    {name:"Rest-Pause Liegestütze",note:w.rest_pause,detail:"3×"},
+    {name:"Priority Set Klimmzüge",note:"1 Set so nah an 10 wie möglich — Ergebnis notieren",detail:"1×Max"}
+  ]);
+
+  html += card("21:30","Recovery",null,[
+    {name:"Glycin",note:"20g in Wasser — tieferer Schlaf, mehr GH-Ausschüttung",detail:"trinken"},
+    {name:"Zimmer",note:"18–19°C, kein Licht ab 21:30",detail:"8,5h Schlaf"},
+    {name:"Protein heute",note:"Mindestens 2,2g/kg Körpergewicht erreicht?",detail:"check"}
+  ]);
+
+  // Projektion
+  html += `<div class="section-label">Erwartete Progression</div>`;
+  html += `<div class="projection">
+    <div class="proj-header" style="border-bottom:0.5px solid #f2f2f7">
+      <span style="width:70px">Woche</span>
+      <span style="margin-right:8px">Klimmzüge</span>
+      <span>Liegestütze</span>
+    </div>
+    ${[
+      ["Start","2–3","15","3","15"],
+      ["Woche 1","4–5","22–25","5","25"],
+      ["Woche 2","5–6","28–32","6","32"],
+      ["Woche 3","7–8","34–38","8","38"],
+      ["Woche 4","9–10","40–43","10","43"],
+      ["Woche 5","11–12","45–50","12","50"],
+      ["Woche 6","13–15","50–55","15","55"]
+    ].map(([label,pull,push,pw,psw])=>`
+      <div class="proj-row">
+        <div class="proj-week">${label}</div>
+        <div class="proj-bar-wrap">
+          <div class="proj-bar proj-pull" style="width:${Math.round(parseInt(pw)*13)}px">${pull}</div>
+          <div class="proj-bar proj-push" style="width:${Math.round(parseInt(psw)*5.5)}px">${push}</div>
+        </div>
+      </div>`).join('')}
+  </div>`;
+
+  // Regeln
+  html += `<div class="section-label">Die 3 Regeln</div>`;
+  html += `<div class="rules">
+    <div class="rule"><div class="rule-num">1</div><div class="rule-text">GTG immer bei 40–50% Tagesmax. Nie ins Versagen — nicht einmal einmal.</div></div>
+    <div class="rule"><div class="rule-num">2</div><div class="rule-text">Tagesmax jeden Abend notieren. Ohne Tracking verlierst du die Progression.</div></div>
+    <div class="rule"><div class="rule-num">3</div><div class="rule-text">Jeden Tag. Kein Tag darf fehlen. Bei 6 Wochen Ziel hast du keinen einzigen zu verschenken.</div></div>
+  </div>`;
+
+  document.getElementById('content').innerHTML = html;
+}
+
+function buildTabs(){
+  const wt = document.getElementById('weekTabs');
+  wt.innerHTML = '';
+  weeks.forEach((w,i)=>{
+    const b = document.createElement('button');
+    b.className = 'wtab' + (i===selWeek?' active':'');
+    b.textContent = w.label;
+    b.onclick = ()=>{ selWeek=i; buildTabs(); render(); };
+    wt.appendChild(b);
+  });
+
+  const dt = document.getElementById('dayTabs');
+  dt.innerHTML = '';
+  days.forEach((d,i)=>{
+    const b = document.createElement('button');
+    b.className = 'dtab' + (i===selDay?' active':'');
+    const isPull = heavyPullDays.includes(i);
+    const isPush = heavyPushDays.includes(i);
+    const tag = isPull?' Pull':isPush?' Push':i===6?' Leicht':'';
+    b.textContent = d + tag;
+    b.onclick = ()=>{ selDay=i; buildTabs(); render(); };
+    dt.appendChild(b);
+  });
+}
+
+buildTabs();
+render();
+</script>
+</body>
+</html>
